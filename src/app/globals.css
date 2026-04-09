@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+.dark {
+  --background: #09090b;
+  --foreground: #f4f4f5;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+.saas-bg {
+  background:
+    radial-gradient(circle at 15% 10%, rgba(34, 211, 238, 0.2), transparent 32%),
+    radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.2), transparent 30%),
+    radial-gradient(circle at 45% 80%, rgba(244, 114, 182, 0.14), transparent 34%),
+    var(--background);
+}
+
+.floating-input {
+  @apply w-full rounded-xl border px-3 pb-2 pt-5 outline-none focus:border-zinc-900 dark:bg-zinc-950 dark:focus:border-zinc-300;
+}
+
+.floating-label {
+  @apply pointer-events-none absolute left-3 top-1 text-xs text-zinc-500;
+}
+
+.glass-card {
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.28),
+      rgba(255, 255, 255, 0.08)
+    )
+    padding-box;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 10px 30px rgba(15, 23, 42, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition:
+    transform 240ms ease,
+    box-shadow 240ms ease,
+    border-color 240ms ease;
+}
+
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(56, 189, 248, 0.7),
+    rgba(168, 85, 247, 0.65),
+    rgba(244, 114, 182, 0.6)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 16px 36px rgba(56, 189, 248, 0.18),
+    0 12px 28px rgba(168, 85, 247, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.dark .glass-card {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: linear-gradient(
+      135deg,
+      rgba(24, 24, 27, 0.75),
+      rgba(39, 39, 42, 0.48)
+    )
+    padding-box;
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.gradient-btn {
+  @apply rounded-xl px-4 py-2 font-medium text-white transition duration-200;
+  background-image: linear-gradient(135deg, #0ea5e9, #8b5cf6 55%, #ec4899);
+  box-shadow: 0 10px 26px rgba(139, 92, 246, 0.3);
+}
+
+.gradient-btn:hover {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 16px 30px rgba(14, 165, 233, 0.28);
+}
+
+.ghost-btn {
+  @apply rounded-xl border border-zinc-300/70 bg-white/70 px-4 py-2 font-medium backdrop-blur transition hover:bg-white dark:border-zinc-700 dark:bg-zinc-900/70 dark:hover:bg-zinc-900;
+}
+
+.input-modern {
+  @apply w-full rounded-xl border border-white/45 bg-white/80 px-3 py-2 shadow-sm outline-none backdrop-blur transition focus:border-cyan-300 focus:ring-2 focus:ring-cyan-200/50 dark:border-zinc-700 dark:bg-zinc-900/80 dark:focus:border-violet-500 dark:focus:ring-violet-500/20;
+}
+
+.table-row-hover {
+  @apply transition hover:bg-zinc-100/65 dark:hover:bg-zinc-800/40;
+}
