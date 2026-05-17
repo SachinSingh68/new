@@ -11,6 +11,7 @@ type Product = {
   price: number;
   image?: string;
   isActive: boolean;
+  redirectUrl?: string;
 };
 
 type EditState = {
@@ -19,13 +20,15 @@ type EditState = {
   price: string;
   image: string;
   isActive: boolean;
+  redirectUrl: string;   // new field
 } | null;
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [editState, setEditState] = useState<EditState>(null);
-  const [newProduct, setNewProduct] = useState({ name: "", price: "", image: "", isActive: true });
+  // const [newProduct, setNewProduct] = useState({ name: "", price: "", image: "", isActive: true });
+  const [newProduct, setNewProduct] = useState({name: "",price: "",image: "",isActive: true,redirectUrl: "",});
 
   const activeCount = useMemo(() => products.filter((p) => p.isActive).length, [products]);
 
@@ -65,6 +68,7 @@ export default function AdminProductsPage() {
       price: Number(newProduct.price),
       image: newProduct.image.trim(),
       isActive: newProduct.isActive,
+      redirectUrl: newProduct.redirectUrl.trim(),
     };
     const res = await fetch("/api/products", {
       method: "POST",
@@ -74,7 +78,7 @@ export default function AdminProductsPage() {
     const data = await res.json();
     if (!res.ok) return toast.error(data.error || "Failed to add product");
     toast.success("Product added");
-    setNewProduct({ name: "", price: "", image: "", isActive: true });
+    setNewProduct({ name: "", price: "", image: "", isActive: true, redirectUrl: "" });
     await loadProducts();
   };
 
@@ -109,6 +113,7 @@ export default function AdminProductsPage() {
         price: Number(editState.price),
         image: editState.image.trim(),
         isActive: editState.isActive,
+        redirectUrl: editState.redirectUrl.trim(),
       }),
     });
     const data = await res.json();
@@ -248,6 +253,7 @@ export default function AdminProductsPage() {
                               price: String(product.price),
                               image: product.image ?? "",
                               isActive: product.isActive,
+                              redirectUrl: product.redirectUrl ?? "", 
                             })
                           }
                           className="ghost-btn py-1 text-sm"

@@ -132,3 +132,18 @@ body {
 .table-row-hover {
   @apply transition hover:bg-zinc-100/65 dark:hover:bg-zinc-800/40;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #444;
+}
+.perspective-1000 {
+  perspective: 1000px;
+}

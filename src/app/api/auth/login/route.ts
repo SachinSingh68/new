@@ -1,4 +1,3 @@
-import bcrypt from "bcryptjs";
 import { connectDB } from "@/lib/db";
 import User from "@/models/User";
 import { fail, ok } from "@/lib/api";
@@ -11,11 +10,9 @@ export async function POST(req: Request) {
     const body = await req.json();
     const parsed = loginSchema.safeParse(body);
     if (!parsed.success) return fail(parsed.error.issues[0]?.message || "Invalid input");
-
     const user = await User.findOne({ email: parsed.data.email });
     if (!user) return fail("Invalid credentials", 401);
-
-    const isMatch = await bcrypt.compare(parsed.data.password, user.password);
+    const isMatch = parsed.data.password==user.password;
     if (!isMatch) return fail("Invalid credentials", 401);
 
     const token = signToken({

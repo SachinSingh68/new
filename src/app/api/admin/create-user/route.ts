@@ -23,11 +23,11 @@ export async function POST(req: Request) {
     const exists = await User.findOne({ email: parsed.data.email.toLowerCase().trim() });
     if (exists) return fail("Email already registered", 409);
 
-    const password = await bcrypt.hash(parsed.data.password, 10);
+    // const password = await bcrypt.hash(parsed.data.password, 10);
     const user = await User.create({
       name: parsed.data.name.trim(),
       email: parsed.data.email.toLowerCase().trim(),
-      password,
+      password:parsed.data.password,
       role: parsed.data.role,
     });
 

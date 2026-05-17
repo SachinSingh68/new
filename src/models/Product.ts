@@ -6,6 +6,7 @@ const productSchema = new Schema(
     price: { type: Number, required: true, min: 0 },
     image: { type: String, default: "", trim: true },
     isActive: { type: Boolean, default: true },
+    redirectUrl: {type: String, default: '', trim: true},
   },
   { timestamps: true },
 );
@@ -17,4 +18,5 @@ export default Product as mongoose.Model<{
   price: number;
   image: string;
   isActive: boolean;
+  redirectUrl: string;  
 }>;

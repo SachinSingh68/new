@@ -2,12 +2,13 @@ import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { Role } from "@/models/User";
 
+
 const JWT_SECRET = process.env.JWT_SECRET || (process.env.NODE_ENV !== "production" ? "dev-secret" : "");
 const COOKIE_NAME = "auth_token";
 
 export type JWTPayload = {
   id: string;
-  email: string;
+  email: String;
   role: Role;
   name: string;
 };
@@ -44,4 +45,22 @@ export async function setAuthCookie(token: string) {
 
 export async function clearAuthCookie() {
   (await cookies()).delete(COOKIE_NAME);
+}
+
+
+export async function getCurrentUser() {
+  const cookieStore = await cookies();
+
+  const token = cookieStore.get("token")?.value;
+
+  if (!token) return null;
+
+  try {
+    return jwt.verify(
+      token,
+      process.env.JWT_SECRET!
+    );
+  } catch {
+    return null;
+  }
 }
